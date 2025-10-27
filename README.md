@@ -184,3 +184,154 @@ Documentação Oficial do AWS Step Functions
 AWS Lambda – Documentação
 
 Tutorial AWS: Criando sua primeira State Machine
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Infraestrutura como Código com AWS CloudFormation
+
+Este projeto tem como objetivo apresentar o funcionamento do **AWS CloudFormation**, um dos principais serviços da AWS voltado para a **automação da infraestrutura como código (IaC)**.  
+Aqui você aprenderá como **criar e gerenciar Stacks**, além de um exemplo prático de **Stack de Firewall** implementado via CloudFormation.
+
+---
+
+## ☁️ Conhecendo o AWS CloudFormation
+
+O **AWS CloudFormation** é um serviço que permite **modelar, provisionar e gerenciar recursos da AWS** por meio de **templates declarativos** escritos em **YAML ou JSON**.  
+Em vez de criar recursos manualmente pelo console, é possível definir toda a arquitetura da aplicação em um arquivo de configuração — o que garante **padronização, repetibilidade e versionamento**.
+
+### 🔍 Conceito-chave
+- **Template:** arquivo que descreve os recursos a serem criados (ex.: EC2, S3, VPC, Security Groups, etc.).  
+- **Stack:** conjunto de recursos criados a partir de um template.  
+- **Change Set:** visualização prévia das alterações antes da aplicação.
+
+---
+
+## 🚀 Benefícios do AWS CloudFormation
+
+✅ **Automatiza a criação e atualização de infraestrutura.**  
+✅ **Evita erros manuais** ao provisionar recursos.  
+✅ **Permite versionar configurações** junto ao código da aplicação.  
+✅ **Integra-se com outros serviços AWS**, como IAM, EC2, S3 e Lambda.  
+✅ **Permite rollback automático** em caso de falha na criação da Stack.  
+
+---
+
+## 🧩 Criando Stacks no AWS CloudFormation
+
+Uma **Stack** é uma coleção de recursos AWS que são criados e gerenciados como uma unidade.  
+Cada vez que você envia um template para o CloudFormation, ele cria (ou atualiza) uma Stack com base nesse modelo.
+
+### 🧠 Exemplo simples de Template (YAML)
+
+```yaml
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Exemplo simples de Stack no AWS CloudFormation
+
+Resources:
+  MeuBucketS3:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: meu-bucket-exemplo-cloudformation
+🪜 Criando uma Stack no Console AWS
+Acesse o AWS CloudFormation no console.
+
+Clique em Create stack → With new resources (standard).
+
+Envie o template YAML ou JSON.
+
+Escolha um nome para a Stack.
+
+Revise e clique em Create stack.
+
+Aguarde a criação e visualize o status no painel (estado CREATE_COMPLETE).
+
+🔒 Criando Stacks de Firewall no CloudFormation
+Com o CloudFormation, também é possível provisionar regras de segurança e firewalls gerenciados automaticamente.
+Abaixo está um exemplo de Stack que cria um AWS Network Firewall dentro de uma VPC.
+
+🧱 Exemplo de Template (Firewall)
+yaml
+Copiar código
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Stack de Firewall no AWS CloudFormation
+
+Resources:
+  MeuFirewallPolicy:
+    Type: AWS::NetworkFirewall::FirewallPolicy
+    Properties:
+      FirewallPolicyName: FirewallPolicyExemplo
+      FirewallPolicy:
+        StatelessDefaultActions:
+          - aws:forward_to_sfe
+        StatelessFragmentDefaultActions:
+          - aws:forward_to_sfe
+
+  MeuFirewall:
+    Type: AWS::NetworkFirewall::Firewall
+    Properties:
+      FirewallName: FirewallExemplo
+      FirewallPolicyArn: !Ref MeuFirewallPolicy
+      VpcId: vpc-1234567890abcdef
+      SubnetMappings:
+        - SubnetId: subnet-abcdef1234567890
+      DeleteProtection: false
+💡 Esse exemplo cria uma política e um firewall básico associado a uma VPC existente.
+Substitua os IDs de VPC e Subnet pelos seus valores reais antes da execução.
+
+⚙️ Criando Stacks via CLI
+Você também pode criar a Stack usando o AWS CLI, com o comando:
+
+bash
+Copiar código
+aws cloudformation create-stack \
+  --stack-name stack-firewall-exemplo \
+  --template-body file://firewall-template.yaml \
+  --capabilities CAPABILITY_NAMED_IAM
+Para verificar o status:
+
+bash
+Copiar código
+aws cloudformation describe-stacks --stack-name stack-firewall-exemplo
+E para excluir a Stack:
+
+bash
+Copiar código
+aws cloudformation delete-stack --stack-name stack-firewall-exemplo
+🧾 Boas Práticas
+Versão no controle de código (Git): mantenha seus templates versionados.
+
+Use parâmetros (Parameters) para criar templates reutilizáveis.
+
+Utilize outputs (Outputs) para expor informações úteis, como IDs de recursos.
+
+Combine com AWS Step Functions para automatizar fluxos de provisionamento complexos.
+
+Valide seus templates antes de enviar:
+
+bash
+Copiar código
+aws cloudformation validate-template --template-body file://template.yaml
+📚 Referências
+Documentação Oficial do AWS CloudFormation
+
+AWS Network Firewall Documentation
+
+Guia: Criando Stacks pelo Console AWS
+
+
