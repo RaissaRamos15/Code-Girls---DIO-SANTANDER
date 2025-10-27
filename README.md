@@ -68,3 +68,119 @@ Se você está começando agora, minha dica é: não tenha medo de errar! Teste 
 
 📎 [Documentação oficial EC2](https://docs.aws.amazon.com/pt_br/toolkit-for-visual-studio/latest/user-guide/tkv-ec2-ami.html)
 
+
+
+# ⚙️ Workflows Automatizados com AWS Step Functions
+
+Este projeto tem como objetivo apresentar o funcionamento e as possibilidades do **AWS Step Functions**, um serviço da AWS utilizado para **criar, orquestrar e automatizar workflows** com integração entre diferentes recursos da nuvem, como funções Lambda, DynamoDB, SNS, entre outros.
+
+---
+
+## 🌩️ Conhecendo o AWS Step Functions
+
+O **AWS Step Functions** é um orquestrador de fluxos de trabalho serverless que permite combinar vários serviços AWS em aplicações distribuídas e processos automatizados.  
+Por meio de uma **máquina de estados (State Machine)**, é possível modelar graficamente e definir a sequência de tarefas, decisões e exceções de forma simples e escalável.
+
+### 🔍 Principais Características
+- **Modelo visual de execução:** facilita o entendimento e a depuração dos fluxos.  
+- **Integração nativa:** conecta-se diretamente com Lambda, S3, DynamoDB, SNS, entre outros.  
+- **Gerenciamento de erros e exceções:** permite definir políticas de *retry* e *catch*.  
+- **Totalmente gerenciado:** sem necessidade de provisionar servidores.  
+
+---
+
+## 🚀 Benefícios do AWS Step Functions
+
+- ✅ **Automação simplificada** de processos complexos.  
+- ✅ **Escalabilidade automática** e alta disponibilidade.  
+- ✅ **Monitoramento em tempo real** com logs integrados no CloudWatch.  
+- ✅ **Facilidade de integração** com outros serviços AWS.  
+- ✅ **Redução de código** — fluxos podem ser definidos em JSON ou YAML.  
+
+---
+
+## 🧩 Projeto Modelo no AWS Step Functions
+
+O projeto exemplo consiste em um **workflow automatizado** que executa uma sequência de tarefas com base em funções Lambda e validações.  
+O fluxo proposto segue a seguinte lógica:
+
+1. **Receber entrada** de dados.  
+2. **Executar validação** por uma função Lambda.  
+3. **Processar dados válidos** com outra função Lambda.  
+4. **Encerrar o fluxo** com sucesso ou falha.
+
+### 🧠 Exemplo de Definição (JSON)
+
+```json
+{
+  "Comment": "Exemplo de workflow com AWS Step Functions",
+  "StartAt": "ValidarEntrada",
+  "States": {
+    "ValidarEntrada": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:REGIAO:ID_CONTA:function:validarEntrada",
+      "Next": "ProcessarDados"
+    },
+    "ProcessarDados": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:REGIAO:ID_CONTA:function:processarDados",
+      "Next": "Sucesso"
+    },
+    "Sucesso": {
+      "Type": "Succeed"
+    }
+  }
+}
+🧾 Realizando Validações no AWS Step Functions
+As validações são fundamentais para garantir que os dados sigam o caminho correto no fluxo.
+No Step Functions, isso é feito com o estado Choice, que permite criar bifurcações lógicas.
+
+🧮 Exemplo:
+json
+Copiar código
+"ValidarEntrada": {
+  "Type": "Choice",
+  "Choices": [
+    {
+      "Variable": "$.status",
+      "StringEquals": "ok",
+      "Next": "ProcessarDados"
+    }
+  ],
+  "Default": "ErroValidacao"
+}
+Se a condição for atendida, o fluxo segue para ProcessarDados; caso contrário, vai para ErroValidacao.
+
+🧰 Criando e Executando Lambda no AWS Step Functions
+As funções Lambda são responsáveis por executar as tarefas do workflow.
+Elas podem ser escritas em Python, Node.js, Java, entre outras linguagens.
+
+Exemplo em Python:
+python
+Copiar código
+def lambda_handler(event, context):
+    if "id" in event:
+        return {"status": "ok", "mensagem": "Validação concluída com sucesso"}
+    else:
+        return {"status": "erro", "mensagem": "Campo 'id' ausente"}
+Depois de criar a função Lambda, copie o ARN e adicione-o à definição da sua máquina de estados no Step Functions.
+
+⚡ Executando o Workflow
+Acesse o AWS Management Console.
+
+Vá até Step Functions → Create state machine.
+
+Escolha Author with code snippets e cole o JSON acima.
+
+Associe as funções Lambda criadas anteriormente.
+
+Clique em Start Execution para iniciar o fluxo.
+
+Acompanhe a execução visualmente no painel do Step Functions.
+
+📚 Referências
+Documentação Oficial do AWS Step Functions
+
+AWS Lambda – Documentação
+
+Tutorial AWS: Criando sua primeira State Machine
