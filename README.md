@@ -1,117 +1,75 @@
-# Code-Girls---DIO-SANTANDER
-Esse repositório é para armazenamento de materiais de aprendizagens e cumprimento de desafios da plataforma DIO.
+Desafios AWS — DIO
 
-# 🚀 Desafio EC2 na AWS — Aprendizado na Prática
+Este repositório é destinado ao armazenamento de materiais de aprendizagem e desafios práticos da plataforma DIO, com foco em serviços da AWS (Amazon Web Services).
+Aqui você encontrará anotações, exemplos e templates utilizados durante o aprendizado de EC2, Step Functions e CloudFormation.
 
-Oi! 👋 Seja bem-vindo(a) ao meu repositório do desafio EC2 da DIO. Aqui você vai encontrar minhas anotações, aprendizados e experiências enquanto explorava o mundo das instâncias EC2 na AWS. Se você também está começando, relaxa — esse material foi feito pra ser simples, direto e fácil de entender. Bora aprender junto?
+🚀 Desafio EC2 na AWS — Aprendizado na Prática
+👋 Introdução
 
----
+Bem-vindo(a)! Este projeto registra meus estudos e experiências com o Amazon EC2, o serviço de máquinas virtuais da AWS.
+O objetivo foi entender como criar, configurar e gerenciar instâncias na nuvem — tudo de forma prática e documentada.
 
-## 📚 Sobre o Desafio
+🧠 O que é EC2?
 
-Esse desafio tem como objetivo colocar em prática tudo que foi aprendido sobre EC2, o serviço da AWS que permite criar máquinas virtuais na nuvem. A ideia é entender como funciona, testar na prática e documentar tudo de forma clara.
+O EC2 (Elastic Compute Cloud) é um serviço que permite criar e gerenciar instâncias virtuais na nuvem da AWS.
+Você pode personalizar CPU, memória, armazenamento, rede e sistema operacional conforme sua necessidade — pagando apenas pelo tempo de uso.
 
----
+Principais componentes:
 
-## 🧠 O que é EC2?
+CPU: núcleos e tipo de processador.
 
-Imagina que você precisa de um computador potente, mas não quer (ou não pode) comprar um físico. O EC2 resolve isso: você "aluga" uma máquina virtual na nuvem da AWS e configura ela do jeitinho que quiser — sistema operacional, memória, CPU, rede, armazenamento... tudo!
+Memória: conforme a carga da aplicação.
 
-Você só paga pelo tempo que usar, e pode ligar, desligar ou deletar a instância quando quiser. Bem flexível!
+Armazenamento: local ou EBS (Elastic Block Store).
 
----
+Rede: IP público/privado e largura de banda.
 
-## 🔍 Componentes de uma Instância EC2
+Sistema Operacional: Linux, Windows, Amazon Linux, etc.
 
-Quando você cria uma instância EC2, pode escolher:
+🧩 EC2 e o modelo IaaS
 
-- **CPU**: número de núcleos e tipo de processador
-- **Memória RAM**: depende da carga que sua aplicação vai ter
-- **Armazenamento**: pode ser disco local ou EBS (armazenamento em bloco)
-- **Rede**: largura de banda, IP público ou privado
-- **Sistema Operacional**: Linux, Windows, Amazon Linux, etc.
+O EC2 é um serviço de Infraestrutura como Serviço (IaaS), em que a AWS gerencia o hardware e a virtualização, enquanto você gerencia:
 
----
+Sistema operacional
 
-## 🧩 EC2 e o modelo IaaS
+Aplicações
 
-O EC2 é um exemplo de IaaS — Infrastructure as a Service. Isso quer dizer que a AWS cuida da infraestrutura (hardware, rede, virtualização), e você cuida do resto:
+Segurança e acesso
 
-- Instalar e configurar o sistema operacional
-- Gerenciar os aplicativos
-- Proteger os dados e acessos
-- Monitorar o desempenho
+Monitoramento e desempenho
 
-É ótimo pra quem quer controle total sobre o ambiente.
+⚙️ Tipos de Instância EC2
+Família	Ideal para...
+T (uso geral)	Aplicações leves, testes e desenvolvimento
+C (computação)	Processamento intensivo e cálculos
+R (memória)	Bancos de dados e aplicações de alta RAM
+M (balanceada)	Equilíbrio entre CPU e memória
+P / G (GPU)	Machine Learning e renderização gráfica
 
----
+Exemplo: t3.micro, c5.large, r6.xlarge
 
-## 🛠️ Tipos de Instância EC2
+✅ Conclusão
 
-A AWS tem várias famílias de instâncias, cada uma pensada pra um tipo de uso:
+Este desafio foi essencial para compreender o funcionamento do EC2 e aplicar conceitos de infraestrutura elástica.
+Dica: teste, erre, leia a documentação e registre seu aprendizado — isso faz toda diferença!
 
-| Família | Ideal para... |
-|--------|----------------|
-| T (uso geral) | Aplicações leves, testes, dev |
-| C (computação otimizada) | Processamento pesado, cálculos |
-| R (memória otimizada) | Bancos de dados, apps que usam muita RAM |
-| M (balanceada) | Equilíbrio entre CPU e memória |
-| P / G (GPU) | Machine learning, renderização gráfica |
+📘 Documentação Oficial do EC2
 
-Exemplos de tipos: `t3.micro`, `c5.large`, `r6.xlarge`...
+⚙️ Workflows Automatizados com AWS Step Functions
+🌩️ O que é AWS Step Functions
 
-## 📝 Conclusão
+O AWS Step Functions é um orquestrador de fluxos de trabalho serverless.
+Ele permite automatizar processos e integrar vários serviços AWS (como Lambda, DynamoDB, S3 e SNS) por meio de uma máquina de estados visual.
 
-Esse desafio foi uma ótima forma de entender como funciona o EC2 na prática. Aprendi a criar, configurar e gerenciar instâncias, além de entender melhor como a AWS organiza seus serviços.
+🔍 Principais Características
 
-Se você está começando agora, minha dica é: não tenha medo de errar! Teste bastante, leia a documentação oficial (link abaixo) e documente tudo que aprender. Isso ajuda demais!
+✅ Modelo visual de execução e monitoramento
+✅ Integração nativa com serviços AWS
+✅ Tratamento de erros e exceções (retry, catch)
+✅ Escalabilidade e alta disponibilidade
+✅ Fluxos definidos em JSON ou YAML
 
-📎 [Documentação oficial EC2](https://docs.aws.amazon.com/pt_br/toolkit-for-visual-studio/latest/user-guide/tkv-ec2-ami.html)
-
-
-
-# ⚙️ Workflows Automatizados com AWS Step Functions
-
-Este projeto tem como objetivo apresentar o funcionamento e as possibilidades do **AWS Step Functions**, um serviço da AWS utilizado para **criar, orquestrar e automatizar workflows** com integração entre diferentes recursos da nuvem, como funções Lambda, DynamoDB, SNS, entre outros.
-
----
-
-## 🌩️ Conhecendo o AWS Step Functions
-
-O **AWS Step Functions** é um orquestrador de fluxos de trabalho serverless que permite combinar vários serviços AWS em aplicações distribuídas e processos automatizados.  
-Por meio de uma **máquina de estados (State Machine)**, é possível modelar graficamente e definir a sequência de tarefas, decisões e exceções de forma simples e escalável.
-
-### 🔍 Principais Características
-- **Modelo visual de execução:** facilita o entendimento e a depuração dos fluxos.  
-- **Integração nativa:** conecta-se diretamente com Lambda, S3, DynamoDB, SNS, entre outros.  
-- **Gerenciamento de erros e exceções:** permite definir políticas de *retry* e *catch*.  
-- **Totalmente gerenciado:** sem necessidade de provisionar servidores.  
-
----
-
-## 🚀 Benefícios do AWS Step Functions
-
-- ✅ **Automação simplificada** de processos complexos.  
-- ✅ **Escalabilidade automática** e alta disponibilidade.  
-- ✅ **Monitoramento em tempo real** com logs integrados no CloudWatch.  
-- ✅ **Facilidade de integração** com outros serviços AWS.  
-- ✅ **Redução de código** — fluxos podem ser definidos em JSON ou YAML.  
-
----
-
-## 🧩 Projeto Modelo no AWS Step Functions
-
-O projeto exemplo consiste em um **workflow automatizado** que executa uma sequência de tarefas com base em funções Lambda e validações.  
-O fluxo proposto segue a seguinte lógica:
-
-1. **Receber entrada** de dados.  
-2. **Executar validação** por uma função Lambda.  
-3. **Processar dados válidos** com outra função Lambda.  
-4. **Encerrar o fluxo** com sucesso ou falha.
-
-### 🧠 Exemplo de Definição (JSON)
-
-```json
+🧩 Exemplo de Workflow (JSON)
 {
   "Comment": "Exemplo de workflow com AWS Step Functions",
   "StartAt": "ValidarEntrada",
@@ -131,13 +89,8 @@ O fluxo proposto segue a seguinte lógica:
     }
   }
 }
-🧾 Realizando Validações no AWS Step Functions
-As validações são fundamentais para garantir que os dados sigam o caminho correto no fluxo.
-No Step Functions, isso é feito com o estado Choice, que permite criar bifurcações lógicas.
 
-🧮 Exemplo:
-json
-Copiar código
+🧾 Validações com Choice State
 "ValidarEntrada": {
   "Type": "Choice",
   "Choices": [
@@ -149,97 +102,43 @@ Copiar código
   ],
   "Default": "ErroValidacao"
 }
-Se a condição for atendida, o fluxo segue para ProcessarDados; caso contrário, vai para ErroValidacao.
 
-🧰 Criando e Executando Lambda no AWS Step Functions
-As funções Lambda são responsáveis por executar as tarefas do workflow.
-Elas podem ser escritas em Python, Node.js, Java, entre outras linguagens.
-
-Exemplo em Python:
-python
-Copiar código
+🐍 Exemplo de Função Lambda em Python
 def lambda_handler(event, context):
     if "id" in event:
         return {"status": "ok", "mensagem": "Validação concluída com sucesso"}
     else:
         return {"status": "erro", "mensagem": "Campo 'id' ausente"}
-Depois de criar a função Lambda, copie o ARN e adicione-o à definição da sua máquina de estados no Step Functions.
 
 ⚡ Executando o Workflow
-Acesse o AWS Management Console.
 
-Vá até Step Functions → Create state machine.
+Acesse o AWS Management Console
 
-Escolha Author with code snippets e cole o JSON acima.
+Vá até Step Functions → Create state machine
 
-Associe as funções Lambda criadas anteriormente.
+Cole o JSON do fluxo
 
-Clique em Start Execution para iniciar o fluxo.
+Associe suas funções Lambda
 
-Acompanhe a execução visualmente no painel do Step Functions.
+Clique em Start Execution
 
-📚 Referências
-Documentação Oficial do AWS Step Functions
+📘 Documentação Oficial do AWS Step Functions
 
-AWS Lambda – Documentação
+🏗️ Infraestrutura como Código com AWS CloudFormation
+☁️ O que é o AWS CloudFormation
 
-Tutorial AWS: Criando sua primeira State Machine
+O AWS CloudFormation permite modelar, provisionar e gerenciar recursos AWS como código — usando arquivos YAML ou JSON.
+Com isso, é possível criar infraestruturas completas de forma automática, padronizada e versionável.
 
+🔧 Conceitos-Chave
 
+Template: define os recursos (EC2, S3, VPC, etc.).
 
+Stack: conjunto de recursos criados a partir do template.
 
+Change Set: pré-visualização das mudanças antes da aplicação.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Infraestrutura como Código com AWS CloudFormation
-
-Este projeto tem como objetivo apresentar o funcionamento do **AWS CloudFormation**, um dos principais serviços da AWS voltado para a **automação da infraestrutura como código (IaC)**.  
-Aqui você aprenderá como **criar e gerenciar Stacks**, além de um exemplo prático de **Stack de Firewall** implementado via CloudFormation.
-
----
-
-## ☁️ Conhecendo o AWS CloudFormation
-
-O **AWS CloudFormation** é um serviço que permite **modelar, provisionar e gerenciar recursos da AWS** por meio de **templates declarativos** escritos em **YAML ou JSON**.  
-Em vez de criar recursos manualmente pelo console, é possível definir toda a arquitetura da aplicação em um arquivo de configuração — o que garante **padronização, repetibilidade e versionamento**.
-
-### 🔍 Conceito-chave
-- **Template:** arquivo que descreve os recursos a serem criados (ex.: EC2, S3, VPC, Security Groups, etc.).  
-- **Stack:** conjunto de recursos criados a partir de um template.  
-- **Change Set:** visualização prévia das alterações antes da aplicação.
-
----
-
-## 🚀 Benefícios do AWS CloudFormation
-
-✅ **Automatiza a criação e atualização de infraestrutura.**  
-✅ **Evita erros manuais** ao provisionar recursos.  
-✅ **Permite versionar configurações** junto ao código da aplicação.  
-✅ **Integra-se com outros serviços AWS**, como IAM, EC2, S3 e Lambda.  
-✅ **Permite rollback automático** em caso de falha na criação da Stack.  
-
----
-
-## 🧩 Criando Stacks no AWS CloudFormation
-
-Uma **Stack** é uma coleção de recursos AWS que são criados e gerenciados como uma unidade.  
-Cada vez que você envia um template para o CloudFormation, ele cria (ou atualiza) uma Stack com base nesse modelo.
-
-### 🧠 Exemplo simples de Template (YAML)
-
-```yaml
+🧠 Exemplo simples de Template
 AWSTemplateFormatVersion: "2010-09-09"
 Description: Exemplo simples de Stack no AWS CloudFormation
 
@@ -248,26 +147,22 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: meu-bucket-exemplo-cloudformation
-🪜 Criando uma Stack no Console AWS
-Acesse o AWS CloudFormation no console.
 
-Clique em Create stack → With new resources (standard).
+🪜 Criando uma Stack no Console
 
-Envie o template YAML ou JSON.
+Acesse AWS CloudFormation
 
-Escolha um nome para a Stack.
+Clique em Create Stack → With new resources (standard)
 
-Revise e clique em Create stack.
+Envie o template YAML/JSON
 
-Aguarde a criação e visualize o status no painel (estado CREATE_COMPLETE).
+Escolha o nome da Stack
 
-🔒 Criando Stacks de Firewall no CloudFormation
-Com o CloudFormation, também é possível provisionar regras de segurança e firewalls gerenciados automaticamente.
-Abaixo está um exemplo de Stack que cria um AWS Network Firewall dentro de uma VPC.
+Clique em Create stack
 
-🧱 Exemplo de Template (Firewall)
-yaml
-Copiar código
+Acompanhe o status até CREATE_COMPLETE
+
+🔒 Exemplo de Stack de Firewall
 AWSTemplateFormatVersion: "2010-09-09"
 Description: Stack de Firewall no AWS CloudFormation
 
@@ -291,47 +186,42 @@ Resources:
       SubnetMappings:
         - SubnetId: subnet-abcdef1234567890
       DeleteProtection: false
-💡 Esse exemplo cria uma política e um firewall básico associado a uma VPC existente.
-Substitua os IDs de VPC e Subnet pelos seus valores reais antes da execução.
 
-⚙️ Criando Stacks via CLI
-Você também pode criar a Stack usando o AWS CLI, com o comando:
 
-bash
-Copiar código
+💡 Dica: substitua os IDs de VPC e Subnet pelos seus valores reais antes da execução.
+
+💻 Criando Stack via AWS CLI
 aws cloudformation create-stack \
   --stack-name stack-firewall-exemplo \
   --template-body file://firewall-template.yaml \
   --capabilities CAPABILITY_NAMED_IAM
-Para verificar o status:
 
-bash
-Copiar código
+
+Ver status:
+
 aws cloudformation describe-stacks --stack-name stack-firewall-exemplo
-E para excluir a Stack:
 
-bash
-Copiar código
+
+Excluir Stack:
+
 aws cloudformation delete-stack --stack-name stack-firewall-exemplo
+
 🧾 Boas Práticas
-Versão no controle de código (Git): mantenha seus templates versionados.
 
-Use parâmetros (Parameters) para criar templates reutilizáveis.
+✅ Versione seus templates com Git
+✅ Use Parameters e Outputs para reutilização
+✅ Valide templates antes do deploy:
 
-Utilize outputs (Outputs) para expor informações úteis, como IDs de recursos.
-
-Combine com AWS Step Functions para automatizar fluxos de provisionamento complexos.
-
-Valide seus templates antes de enviar:
-
-bash
-Copiar código
 aws cloudformation validate-template --template-body file://template.yaml
-📚 Referências
-Documentação Oficial do AWS CloudFormation
-
-AWS Network Firewall Documentation
-
-Guia: Criando Stacks pelo Console AWS
 
 
+✅ Combine com Step Functions para provisionamentos automatizados
+
+📘 Documentação Oficial do AWS CloudFormation
+
+📗 AWS Network Firewall Documentation
+
+🧭 Conclusão
+
+Esses desafios da DIO foram fundamentais para compreender infraestrutura como código, automação de workflows e gerenciamento de recursos em nuvem usando AWS.
+Cada serviço — EC2, Step Functions e CloudFormation — representa um passo importante rumo à automação e eficiência operacional em ambientes cloud.
