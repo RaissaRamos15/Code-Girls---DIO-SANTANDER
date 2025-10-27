@@ -1,97 +1,83 @@
- Workflows Automatizados com AWS Step Functions
+arkdown
+# 🏗️ Infraestrutura como Código com AWS CloudFormation
 
-Este projeto apresenta o funcionamento e as possibilidades do **AWS Step Functions**, um serviço da AWS utilizado para **criar, orquestrar e automatizar workflows** entre diferentes recursos da nuvem, como funções Lambda, DynamoDB, SNS, entre outros.
+Este projeto demonstra como usar o **AWS CloudFormation** para criar e gerenciar recursos AWS de forma automatizada, escalável e versionável.
 
 ---
 
-## 🌩️ Conhecendo o AWS Step Functions
-
-O **Step Functions** é um orquestrador de fluxos de trabalho serverless que permite combinar vários serviços AWS em aplicações distribuídas e processos automatizados.  
-Por meio de uma **máquina de estados (State Machine)**, é possível modelar graficamente a sequência de tarefas, decisões e exceções.
-
-### 🔍 Principais Características
-- Modelo visual de execução para facilitar entendimento e depuração  
-- Integração nativa com Lambda, S3, DynamoDB, SNS, entre outros  
-- Gerenciamento de erros com políticas de retry e catch  
-- Totalmente gerenciado, sem necessidade de provisionar servidores  
+## ☁️ Conceitos-Chave
+- **Template:** arquivo YAML ou JSON que descreve os recursos (EC2, S3, VPC, Security Groups)  
+- **Stack:** conjunto de recursos criados a partir de um template  
+- **Change Set:** pré-visualização das alterações antes de aplicar  
 
 ---
 
 ## 🚀 Benefícios
-✅ Automação de processos complexos  
-✅ Escalabilidade automática e alta disponibilidade  
-✅ Monitoramento em tempo real via CloudWatch  
-✅ Redução de código com fluxos definidos em JSON ou YAML  
+✅ Criação e atualização automática de infraestrutura  
+✅ Redução de erros manuais  
+✅ Versionamento junto ao código da aplicação  
+✅ Rollback automático em caso de falha  
 
 ---
 
-## 🧩 Projeto Modelo
+## 🧩 Criando Stacks
+### Exemplo de Template YAML
+```yaml
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Exemplo simples de Stack no CloudFormation
 
-Fluxo de exemplo:
+Resources:
+  MeuBucketS3:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: meu-bucket-exemplo-cloudformation
+Criando Stack via Console
+AWS Console → CloudFormation → Create stack → With new resources (standard)
 
-1. Receber entrada de dados  
-2. Validar dados com função Lambda  
-3. Processar dados válidos com outra Lambda  
-4. Encerrar com sucesso ou falha  
+Enviar template YAML/JSON
 
-### Exemplo de definição JSON
-```json
-{
-  "Comment": "Exemplo de workflow com AWS Step Functions",
-  "StartAt": "ValidarEntrada",
-  "States": {
-    "ValidarEntrada": {
-      "Type": "Task",
-      "Resource": "arn:aws:lambda:REGIAO:ID_CONTA:function:validarEntrada",
-      "Next": "ProcessarDados"
-    },
-    "ProcessarDados": {
-      "Type": "Task",
-      "Resource": "arn:aws:lambda:REGIAO:ID_CONTA:function:processarDados",
-      "Next": "Sucesso"
-    },
-    "Sucesso": {
-      "Type": "Succeed"
-    }
-  }
-}
-🧾 Validações com Choice State
-json
+Nomear Stack
+
+Create stack → aguardar status CREATE_COMPLETE
+
+🔒 Stack de Firewall
+yaml
 Copiar código
-"ValidarEntrada": {
-  "Type": "Choice",
-  "Choices": [
-    {
-      "Variable": "$.status",
-      "StringEquals": "ok",
-      "Next": "ProcessarDados"
-    }
-  ],
-  "Default": "ErroValidacao"
-}
-🐍 Criando e Executando Lambda
-Exemplo em Python:
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Stack de Firewall no CloudFormation
 
-python
+Resources:
+  MeuFirewallPolicy:
+    Type: AWS::NetworkFirewall::FirewallPolicy
+    Properties:
+      FirewallPolicyName: FirewallPolicyExemplo
+      FirewallPolicy:
+        StatelessDefaultActions:
+          - aws:forward_to_sfe
+        StatelessFragmentDefaultActions:
+          - aws:forward_to_sfe
+
+  MeuFirewall:
+    Type: AWS::NetworkFirewall::Firewall
+    Properties:
+      FirewallName: FirewallExemplo
+      FirewallPolicyArn: !Ref MeuFirewallPolicy
+      VpcId: vpc-1234567890abcdef
+      SubnetMappings:
+        - SubnetId: subnet-abcdef1234567890
+      DeleteProtection: false
+Criando via CLI
+bash
 Copiar código
-def lambda_handler(event, context):
-    if "id" in event:
-        return {"status": "ok", "mensagem": "Validação concluída com sucesso"}
-    else:
-        return {"status": "erro", "mensagem": "Campo 'id' ausente"}
-⚡ Executando o Workflow
-AWS Console → Step Functions → Create state machine
+aws cloudformation create-stack \
+  --stack-name stack-firewall-exemplo \
+  --template-body file://firewall-template.yaml \
+  --capabilities CAPABILITY_NAMED_IAM
 
-Escolher Author with code snippets
-
-Colar JSON acima
-
-Associar funções Lambda
-
-Start Execution
-
+aws cloudformation describe-stacks --stack-name stack-firewall-exemplo
+aws cloudformation delete-stack --stack-name stack-firewall-exemplo
 📚 Referências:
 
-AWS Step Functions
+CloudFormation
 
-AWS Lambda
+AWS Network Firewall
